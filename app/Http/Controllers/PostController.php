@@ -13,7 +13,6 @@ class PostController extends Controller
         return response()->json(['message' => 'Berhasil Get Data', 'data' => $data]);
     }
 
-
     public function show($id)
     {
         $data = Post::find($id);
@@ -23,12 +22,6 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data  = $request->all();
-        // $data = [
-        //     'title' => $request->title,
-        //     'news_content' => $request->news_content,
-        //     'author' => $request->author,
-        // ];
-
         Post::create($data);
         return response()->json(['message' => 'Berhasil Tambah Data']);
     }
