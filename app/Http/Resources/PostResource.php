@@ -19,7 +19,8 @@ class PostResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'terserah' => 'Data Terserah tidak ada dalam database'
+            'news_content' => $this->news_content,
+            'created_at' => date_format($this->created_at, 'Y/m/d H:i:s')
         ];
 
 
