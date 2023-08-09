@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PostDetailResource;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -16,8 +17,8 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $data = Post::find($id);
-        return response()->json(['message' => 'Berhasil Detail Data', 'data' => $data]);
+        $data = Post::findOrFail($id);
+        return new PostDetailResource($data);
     }
 
     public function store(Request $request)
