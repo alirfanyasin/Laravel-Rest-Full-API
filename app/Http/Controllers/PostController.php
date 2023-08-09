@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PostDetailResource;
+use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -10,25 +12,25 @@ class PostController extends Controller
     public function index()
     {
         $data = Post::all();
-        return response()->json(['message' => 'Berhasil Get Data', 'data' => $data]);
+        return PostResource::collection($data);
     }
-
 
     public function show($id)
     {
-        $data = Post::find($id);
-        return response()->json(['message' => 'Berhasil Detail Data', 'data' => $data]);
+        $data = Post::with('writer:id,name')->findOrFail($id);
+        return new PostDetailResource($data);
+    }
+
+    // Test to eager loading
+    public function show2($id)
+    {
+        $data = Post::findOrFail($id);
+        return new PostDetailResource($data);
     }
 
     public function store(Request $request)
     {
         $data  = $request->all();
-        // $data = [
-        //     'title' => $request->title,
-        //     'news_content' => $request->news_content,
-        //     'author' => $request->author,
-        // ];
-
         Post::create($data);
         return response()->json(['message' => 'Berhasil Tambah Data']);
     }

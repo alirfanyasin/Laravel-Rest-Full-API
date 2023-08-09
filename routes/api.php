@@ -22,6 +22,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/post', [PostController::class, 'index']);
 Route::get('/post/{id}', [PostController::class, 'show']);
+// Test to eager loading
+Route::get('/post2/{id}', [PostController::class, 'show2']);
+
 Route::post('/post/store', [PostController::class, 'store']);
 
 Route::patch('/post/update/{id}', [PostController::class, 'update']);
