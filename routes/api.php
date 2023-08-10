@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,11 +21,13 @@ use Illuminate\Support\Facades\Route;
 // });
 
 
-Route::get('/post', [PostController::class, 'index']);
-Route::get('/post/{id}', [PostController::class, 'show']);
+Route::get('/post', [PostController::class, 'index'])->middleware('auth:sanctum');
+Route::get('/post/{id}', [PostController::class, 'show'])->middleware('auth:sanctum');
 // Test to eager loading
 Route::get('/post2/{id}', [PostController::class, 'show2']);
 
-Route::post('/post/store', [PostController::class, 'store']);
+// Authentication using Sanctum API
+Route::post('/login', [AuthenticationController::class, 'login']);
+Route::get('/logout', [AuthenticationController::class, 'logout'])->middleware('auth:sanctum');
 
-Route::patch('/post/update/{id}', [PostController::class, 'update']);
+Route::get('/me', [AuthenticationController::class, 'me'])->middleware('auth:sanctum');

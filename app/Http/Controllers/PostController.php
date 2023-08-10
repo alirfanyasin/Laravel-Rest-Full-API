@@ -9,10 +9,9 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Post $post)
     {
-        $data = Post::all();
-        return PostResource::collection($data);
+        return PostResource::collection($post->all());
     }
 
     public function show($id)
@@ -22,21 +21,9 @@ class PostController extends Controller
     }
 
     // Test to eager loading
-    public function show2($id)
+    public function show2($id, Post $post)
     {
-        $data = Post::findOrFail($id);
-        return new PostDetailResource($data);
-    }
-
-    public function store(Request $request)
-    {
-        $data  = $request->all();
-        Post::create($data);
-        return response()->json(['message' => 'Berhasil Tambah Data']);
-    }
-
-
-    public function update($id, Request $request)
-    {
+        // $data = Post::findOrFail($id);
+        return new PostDetailResource($post->findOrFail($id));
     }
 }
