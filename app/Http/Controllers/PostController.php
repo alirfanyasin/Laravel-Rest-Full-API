@@ -27,16 +27,4 @@ class PostController extends Controller
         $data = Post::findOrFail($id);
         return new PostDetailResource($data);
     }
-
-    public function store(Request $request)
-    {
-        $data  = $request->all();
-        Post::create($data);
-        return response()->json(['message' => 'Berhasil Tambah Data']);
-    }
-
-
-    public function update($id, Request $request)
-    {
-    }
 }
