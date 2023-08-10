@@ -29,3 +29,5 @@ Route::get('/post2/{id}', [PostController::class, 'show2']);
 // Authentication using Sanctum API
 Route::post('/login', [AuthenticationController::class, 'login']);
 Route::get('/logout', [AuthenticationController::class, 'logout'])->middleware('auth:sanctum');
+
+Route::get('/me', [AuthenticationController::class, 'me'])->middleware('auth:sanctum');

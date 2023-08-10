@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthenticationController extends Controller
@@ -35,5 +36,13 @@ class AuthenticationController extends Controller
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
+    }
+
+
+
+    public function me()
+    {
+        // Mendapatkan data user yang sedang login menggunakan token
+        return response()->json(Auth::user());
     }
 }
